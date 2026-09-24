@@ -17,6 +17,10 @@ const people = JSON.parse(await fs.readFile(path.join(root, "data", "employees.j
 const publicBaseUrl = (process.env.PUBLIC_BASE_URL || config.publicBaseUrl).replace(/\/$/, "");
 const passTypeIdentifier = process.env.PASS_TYPE_IDENTIFIER || config.passTypeIdentifier;
 const teamIdentifier = process.env.APPLE_TEAM_IDENTIFIER || config.teamIdentifier;
+const walletPassesEnabled = process.env.WALLET_PASSES_ENABLED
+  ? process.env.WALLET_PASSES_ENABLED === "true"
+  : config.walletPassesEnabled;
+const runtimeConfig = { ...config, walletPassesEnabled };
 
 await validateRoster(people);
 await fs.rm(dist, { recursive: true, force: true });
@@ -40,21 +44,21 @@ for (const person of people) {
   await sharp(photoSource).rotate().resize(720, 720, { fit: "cover", position: "attention" })
     .png({ quality: 92 }).toFile(path.join(dist, "assets", "photos", photoName));
 
-  const vcard = makeVCard(person, config);
+  const vcard = makeVCard(person, runtimeConfig);
   await fs.writeFile(path.join(cardDir, "contact.vcf"), vcard);
   await QRCode.toFile(path.join(cardDir, "share-qr.png"), pageUrl, {
     errorCorrectionLevel: "M",
     margin: 4,
     width: 900,
-    color: { dark: config.colors.darkGreen, light: "#FFFFFF" }
+    color: { dark: runtimeConfig.colors.darkGreen, light: "#FFFFFF" }
   });
 
-  await fs.writeFile(path.join(cardDir, "index.html"), makeCardPage(person, config, pageUrl, photoName));
-  await writePassSource(person, config, sourceDir, pageUrl, passTypeIdentifier, teamIdentifier, photoSource);
+  await fs.writeFile(path.join(cardDir, "index.html"), makeCardPage(person, runtimeConfig, pageUrl, photoName));
+  await writePassSource(person, runtimeConfig, sourceDir, pageUrl, passTypeIdentifier, teamIdentifier, photoSource);
 }
 
-await fs.writeFile(path.join(dist, "index.html"), makeHomePage(people, config));
-await fs.writeFile(path.join(dist, "404.html"), makeNotFoundPage(config));
+await fs.writeFile(path.join(dist, "index.html"), makeHomePage(people, runtimeConfig));
+await fs.writeFile(path.join(dist, "404.html"), makeNotFoundPage(runtimeConfig));
 console.log(`Built ${people.length} employee card(s) in ${dist}`);
 
 async function validateRoster(roster) {
