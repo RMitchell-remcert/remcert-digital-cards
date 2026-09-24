@@ -34,6 +34,7 @@ jobs:
           PUBLIC_BASE_URL: ${{ vars.PUBLIC_BASE_URL }}
           PASS_TYPE_IDENTIFIER: ${{ vars.PASS_TYPE_IDENTIFIER }}
           APPLE_TEAM_IDENTIFIER: ${{ vars.APPLE_TEAM_IDENTIFIER }}
+          WALLET_PASSES_ENABLED: ${{ env.PASS_CERT_PEM_BASE64 != '' && env.PASS_KEY_PEM_BASE64 != '' && env.APPLE_WWDR_PEM_BASE64 != '' }}
       - name: Decode Apple signing materials
         if: ${{ env.PASS_CERT_PEM_BASE64 != '' && env.PASS_KEY_PEM_BASE64 != '' && env.APPLE_WWDR_PEM_BASE64 != '' }}
         run: |
