@@ -1,0 +1,65 @@
+name: Build and deploy REMCERT cards
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      PASS_CERT_PEM_BASE64: ${{ secrets.PASS_CERT_PEM_BASE64 }}
+      PASS_KEY_PEM_BASE64: ${{ secrets.PASS_KEY_PEM_BASE64 }}
+      APPLE_WWDR_PEM_BASE64: ${{ secrets.APPLE_WWDR_PEM_BASE64 }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Build cards and pass sources
+        run: npm run build
+        env:
+          PUBLIC_BASE_URL: ${{ vars.PUBLIC_BASE_URL }}
+          PASS_TYPE_IDENTIFIER: ${{ vars.PASS_TYPE_IDENTIFIER }}
+          APPLE_TEAM_IDENTIFIER: ${{ vars.APPLE_TEAM_IDENTIFIER }}
+      - name: Decode Apple signing materials
+        if: ${{ env.PASS_CERT_PEM_BASE64 != '' && env.PASS_KEY_PEM_BASE64 != '' && env.APPLE_WWDR_PEM_BASE64 != '' }}
+        run: |
+          printf '%s' "$PASS_CERT_PEM_BASE64" | base64 --decode > "$RUNNER_TEMP/pass-cert.pem"
+          printf '%s' "$PASS_KEY_PEM_BASE64" | base64 --decode > "$RUNNER_TEMP/pass-key.pem"
+          printf '%s' "$APPLE_WWDR_PEM_BASE64" | base64 --decode > "$RUNNER_TEMP/apple-wwdr.pem"
+      - name: Sign Apple Wallet passes
+        if: ${{ env.PASS_CERT_PEM_BASE64 != '' && env.PASS_KEY_PEM_BASE64 != '' && env.APPLE_WWDR_PEM_BASE64 != '' }}
+        run: npm run sign
+        env:
+          PASS_CERT_PEM: ${{ runner.temp }}/pass-cert.pem
+          PASS_KEY_PEM: ${{ runner.temp }}/pass-key.pem
+          APPLE_WWDR_PEM: ${{ runner.temp }}/apple-wwdr.pem
+      - run: npm test
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
