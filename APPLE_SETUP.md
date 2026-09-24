@@ -40,7 +40,7 @@ In the card repository, open **Settings → Secrets and variables → Actions**.
 
 Add these repository variables:
 
-- `PUBLIC_BASE_URL` = `https://cards.remcert.com`
+- `PUBLIC_BASE_URL` = `https://rmitchell-remcert.github.io/remcert-digital-cards` (use `https://cards.remcert.com` only after its DNS is connected)
 - `PASS_TYPE_IDENTIFIER` = `pass.com.remcert.businesscard`
 - `APPLE_TEAM_IDENTIFIER` = the Team ID shown in the Apple Developer account
 
@@ -63,9 +63,9 @@ Delete the unencrypted `pass-key.pem` from the Mac after the GitHub secret has b
 ## 5. Publish the card site
 
 1. In **Settings → Pages**, choose **GitHub Actions** as the source.
-2. Point the DNS CNAME record for `cards.remcert.com` to the GitHub Pages hostname shown for the repository.
+2. Optional: point the DNS CNAME record for `cards.remcert.com` to the GitHub Pages hostname, then change `PUBLIC_BASE_URL` after GitHub verifies the domain.
 3. Push to `main` or run the workflow manually.
-4. Open `https://cards.remcert.com/richard-mitchell/` on an iPhone and tap **Add to Apple Wallet**.
+4. Open `https://rmitchell-remcert.github.io/remcert-digital-cards/richard-mitchell/` on an iPhone and tap **Add to Apple Wallet**.
 
 ## Add another employee
 
