@@ -1,8 +1,8 @@
 {
   "organizationName": "REM Consulting LLC",
   "brandName": "REMCERT",
-  "publicBaseUrl": "https://cards.remcert.com",
-  "customDomain": "cards.remcert.com",
+  "publicBaseUrl": "https://rmitchell-remcert.github.io/remcert-digital-cards",
+  "customDomain": "",
   "passTypeIdentifier": "pass.com.remcert.businesscard",
   "teamIdentifier": "REPLACE_WITH_APPLE_TEAM_ID",
   "walletPassesEnabled": true,
