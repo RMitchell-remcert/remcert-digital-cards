@@ -5,7 +5,7 @@
   "customDomain": "",
   "passTypeIdentifier": "pass.com.remcert.businesscard",
   "teamIdentifier": "REPLACE_WITH_APPLE_TEAM_ID",
-  "walletPassesEnabled": true,
+  "walletPassesEnabled": false,
   "directoryEnabled": false,
   "mainPhone": "844-236-2378",
   "website": "https://www.remcert.com",
