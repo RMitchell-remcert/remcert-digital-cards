@@ -1,0 +1,16 @@
+[
+  {
+    "active": true,
+    "slug": "richard-mitchell",
+    "name": "Richard Mitchell",
+    "title": "President",
+    "company": "REM Consulting LLC",
+    "brand": "REMCERT",
+    "email": "Richard.Mitchell@remcert.com",
+    "mainPhone": "844-236-2378",
+    "cellPhone": "256-932-0573",
+    "website": "https://www.remcert.com",
+    "address": "2208 Danville Rd SW, Suite B, Decatur, AL 35601",
+    "photo": "assets/photos/richard-mitchell.png"
+  }
+]
