@@ -44,7 +44,7 @@ See [APPLE_SETUP.md](APPLE_SETUP.md) for the exact Apple, certificate, GitHub se
 
 Repository **Settings → Secrets and variables → Actions → Variables**:
 
-- `PUBLIC_BASE_URL` — final root URL, such as `https://cards.remcert.com`
+- `PUBLIC_BASE_URL` — optional final root URL; the current default is `https://rmitchell-remcert.github.io/remcert-digital-cards`
 - `PASS_TYPE_IDENTIFIER` — `pass.com.remcert.businesscard`
 - `APPLE_TEAM_IDENTIFIER` — Apple Team ID shown in the developer account
 
@@ -64,4 +64,4 @@ In repository **Settings → Pages**, set the source to **GitHub Actions**. The 
 
 - Richard Mitchell — President
 
-The first generated card uses `https://cards.remcert.com/richard-mitchell/` unless `PUBLIC_BASE_URL` is changed.
+The first generated card uses `https://rmitchell-remcert.github.io/remcert-digital-cards/richard-mitchell/` unless `PUBLIC_BASE_URL` is changed.
