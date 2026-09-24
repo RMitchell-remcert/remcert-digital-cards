@@ -1,0 +1,27 @@
+{
+  "organizationName": "REM Consulting LLC",
+  "brandName": "REMCERT",
+  "publicBaseUrl": "https://cards.remcert.com",
+  "customDomain": "cards.remcert.com",
+  "passTypeIdentifier": "pass.com.remcert.businesscard",
+  "teamIdentifier": "REPLACE_WITH_APPLE_TEAM_ID",
+  "walletPassesEnabled": true,
+  "directoryEnabled": false,
+  "mainPhone": "844-236-2378",
+  "website": "https://www.remcert.com",
+  "address": "2208 Danville Rd SW, Suite B, Decatur, AL 35601",
+  "addressParts": {
+    "street": "2208 Danville Rd SW, Suite B",
+    "city": "Decatur",
+    "state": "AL",
+    "postalCode": "35601",
+    "country": "USA"
+  },
+  "motto": "Safety • Quality • Production — IN THAT ORDER!",
+  "colors": {
+    "darkGreen": "#033421",
+    "blue": "#024E8D",
+    "mint": "#52C697",
+    "olive": "#436027"
+  }
+}

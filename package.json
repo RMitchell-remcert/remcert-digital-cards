@@ -1,0 +1,15 @@
+{
+  "name": "remcert-digital-cards",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "sign": "bash scripts/sign-passes.sh",
+    "test": "node scripts/validate.mjs"
+  },
+  "dependencies": {
+    "qrcode": "^1.5.4",
+    "sharp": "^0.34.4"
+  }
+}
